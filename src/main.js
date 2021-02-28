@@ -6,7 +6,11 @@ import createFilmsList from './components/films-list.js';
 import createFilmCard from './components/film-card.js';
 import createShowMoreButton from './components/show-more-button.js';
 
-const FILMS_COUNT = 5;
+import {createFilms as createFilmsMock} from './mocks/films.js';
+
+const FILMS_COUNT = 16;
+
+const films = createFilmsMock(FILMS_COUNT);
 
 const render = (container, template, place) => {
   container.insertAdjacentHTML(place, template);
@@ -27,9 +31,7 @@ render(filmsContainer, createFilmsList(), `beforeend`);
 const filmsListContainer = filmsContainer.querySelector(`.films-list`);
 const filmListCardContainer = filmsListContainer.querySelector(`.films-list__container`);
 
-for (let i = 0; i < FILMS_COUNT; i++) {
-  render(filmListCardContainer, createFilmCard(), `beforeend`);
-}
+films.forEach((film) => render(filmListCardContainer, createFilmCard(film), `beforeend`));
 
 render(filmsListContainer, createShowMoreButton(), `beforeend`);
 
