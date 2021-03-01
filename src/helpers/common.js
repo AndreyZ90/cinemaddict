@@ -21,3 +21,7 @@ export const getRandomArray = (array) => {
   return randomArray;
 };
 
+export const render = (container, element, place) => {
+  container.insertAdjacentElement(place, element);
+};
+
