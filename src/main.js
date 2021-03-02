@@ -45,17 +45,31 @@ const renderFilm = (container, film) => {
 
   const closeButton = filmDetailsComponent.querySelector(`.film-details__close-btn`);
 
-  [title, poster, comments].forEach((item) => item.addEventListener(`click`, () => {
+  const onOpenPopupClick = () => {
     document.body.appendChild(filmDetailsComponent);
     document.body.classList.add(`hide-overflow`);
+    document.addEventListener(`keydown`, onEscKeyDown);
 
-    closeButton.addEventListener(`click`, () => {
-      document.body.removeChild(filmDetailsComponent);
-      document.body.classList.remove(`hide-overflow`);
-    });
-  }));
+    closeButton.addEventListener(`click`, onClosePopupClick);
+  };
 
-  render(container, filmCardComponent, `beforeend`);
+  const onClosePopupClick = () => {
+    document.body.removeChild(filmDetailsComponent);
+    document.body.classList.remove(`hide-overflow`);
+
+    closeButton.removeEventListener(`click`, onClosePopupClick);
+  };
+
+  const onEscKeyDown = (evt) => {
+    if (evt.key === `Esc` || evt.key === `Escape`) {
+      onClosePopupClick();
+      document.removeEventListener(`keydown`, onEscKeyDown);
+    }
+  };
+
+  [title, poster, comments].forEach((item) => item.addEventListener(`click`, onOpenPopupClick));
+
+  render(container, filmCardComponent);
 };
 
 films.slice(0, showingFilmsCount).forEach((film) => renderFilm(filmListCardContainer, film));
