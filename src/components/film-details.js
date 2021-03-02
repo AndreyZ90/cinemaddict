@@ -1,4 +1,4 @@
-export default class SortList {
+export default class FilmDetails {
   constructor() {
     this._element = null;
   }
