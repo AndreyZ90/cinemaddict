@@ -31,6 +31,7 @@ export default class FilmCard {
   _createTemplate(film) {
     const {
       filmInfo: {
+        title,
         totalRating,
         runtime,
         poster,
@@ -54,7 +55,7 @@ export default class FilmCard {
 
     return (
       `<article class="film-card">
-        <h3 class="film-card__title">The Dance of Life</h3>
+        <h3 class="film-card__title">${title}</h3>
         <p class="film-card__rating">${totalRating}</p>
         <p class="film-card__info">
           <span class="film-card__year">${date}</span>
