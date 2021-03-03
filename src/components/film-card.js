@@ -1,31 +1,14 @@
-export default class FilmCard {
+import AbstractComponent from "./abstract-component";
+
+export default class FilmCard extends AbstractComponent {
   constructor(film) {
+    super();
+
     this._film = film;
-
-    this._element = null;
   }
 
-  getTemplate(...args) {
-    return this._createTemplate(...args);
-  }
-
-  getElement() {
-    if (!this._element) {
-      this._element = this._createElement(this.getTemplate(this._film));
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-
-  _createElement(template) {
-    const div = document.createElement(`div`);
-    div.innerHTML = template;
-
-    return div.firstChild;
+  _getTemplate() {
+    return this._createTemplate(this._film);
   }
 
   _createTemplate(film) {
