@@ -1,31 +1,24 @@
-export default class FilmCard {
+import AbstractComponent from "./abstract-component";
+
+export default class FilmCard extends AbstractComponent {
   constructor(film) {
+    super();
+
     this._film = film;
-
-    this._element = null;
   }
 
-  getTemplate(...args) {
-    return this._createTemplate(...args);
+  setOpenPopupClickHandler(handler) {
+    const element = this.getElement();
+
+    const title = element.querySelector(`.film-card__title`);
+    const poster = element.querySelector(`.film-card__poster`);
+    const comments = element.querySelector(`.film-card__comments`);
+
+    [title, poster, comments].forEach((item) => item.addEventListener(`click`, handler));
   }
 
-  getElement() {
-    if (!this._element) {
-      this._element = this._createElement(this.getTemplate(this._film));
-    }
-
-    return this._element;
-  }
-
-  removeElement() {
-    this._element = null;
-  }
-
-  _createElement(template) {
-    const div = document.createElement(`div`);
-    div.innerHTML = template;
-
-    return div.firstChild;
+  _getTemplate() {
+    return this._createTemplate(this._film);
   }
 
   _createTemplate(film) {
@@ -58,8 +51,8 @@ export default class FilmCard {
         <h3 class="film-card__title">${title}</h3>
         <p class="film-card__rating">${totalRating}</p>
         <p class="film-card__info">
-          <span class="film-card__year">${date}</span>
-          <span class="film-card__duration">${runtime}</span>
+          <span class="film-card__year">${new Date(date).getFullYear()}</span>
+          <span class="film-card__duration">${Math.floor(runtime / 60)}h ${runtime % 60}m</span>
           <span class="film-card__genre">${genre[0]}</span>
         </p>
         <img src="./images/posters/${poster}" alt="" class="film-card__poster">

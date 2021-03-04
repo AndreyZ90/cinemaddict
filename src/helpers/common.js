@@ -21,7 +21,12 @@ export const getRandomArray = (array) => {
   return randomArray;
 };
 
-export const render = (container, element, place = `beforeend`) => {
-  container.insertAdjacentElement(place, element);
+export const render = (container, component, place = `beforeend`) => {
+  container.insertAdjacentElement(place, component.getElement());
+};
+
+export const remove = (component) => {
+  component.getElement().remove();
+  component.removeElement();
 };
 
